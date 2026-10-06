@@ -1,0 +1,18 @@
+# Backend
+backend/target/
+backend/.mvn/wrapper/maven-wrapper.jar
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# Secrets
+.env
+*.env
+application-local.properties
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
