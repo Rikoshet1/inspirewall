@@ -29,4 +29,34 @@ public class InspirationItemController {
     public InspirationItem create(@Valid @RequestBody InspirationItem item) {
         return inspirationItemRepository.save(item);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<InspirationItem> getById(@PathVariable String id) {
+        return inspirationItemRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<InspirationItem> update(@PathVariable String id,
+            @Valid @RequestBody InspirationItem updated) {
+        return inspirationItemRepository.findById(id)
+                .map(existing -> {
+                    existing.setContent(updated.getContent());
+                    existing.setAuthor(updated.getAuthor());
+                    existing.setTags(updated.getTags());
+                    existing.setBgImageUrl(updated.getBgImageUrl());
+                    return ResponseEntity.ok(inspirationItemRepository.save(existing));
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable String id) {
+        if (!inspirationItemRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        inspirationItemRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 }
