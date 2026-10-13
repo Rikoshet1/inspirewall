@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&family=Rubik:wght@400;500;600;700&display=swap');
 
 :root {
-  color: #242522;
+  color: #292a25;
   background: #f7f6f2;
   font-family: 'Assistant', sans-serif;
   font-synthesis: none;
@@ -14,86 +14,287 @@
   box-sizing: border-box;
 }
 
-html,
-body,
-#root {
+body {
+  min-width: 320px;
   min-height: 100vh;
   margin: 0;
 }
 
-.welcome {
-  display: grid;
-  min-height: 100vh;
-  padding: 24px;
-  place-items: center;
+button,
+a {
+  font: inherit;
 }
 
-.welcome-card {
-  width: min(100%, 560px);
-  padding: 64px 48px;
-  border: 1px solid #e9e7df;
-  border-radius: 24px;
-  background: #fff;
-  box-shadow: 0 20px 60px rgb(38 37 31 / 6%);
-  text-align: center;
+.board-page {
+  min-height: 100vh;
+  padding: 0 6vw 88px;
+}
+
+.site-header {
+  display: flex;
+  min-height: 84px;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #eae8e0;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  color: #292a25;
+  font-family: 'Rubik', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
 }
 
 .brand-mark {
   display: grid;
-  width: 56px;
-  height: 56px;
-  margin: 0 auto 28px;
-  border-radius: 18px;
-  background: #f0ede3;
+  width: 38px;
+  height: 38px;
+  border-radius: 13px;
+  background: #e9e8dd;
   color: #777050;
-  font-size: 36px;
+  font-size: 28px;
   line-height: 1;
   place-items: center;
 }
 
-.eyebrow {
-  margin: 0 0 14px;
-  color: #8b8059;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+.header-note {
+  color: #777873;
+  font-size: 15px;
 }
 
-.welcome h1 {
+.board-content {
+  width: min(100%, 1120px);
+  margin: 0 auto;
+}
+
+.board-intro {
+  padding: 70px 0 38px;
+  text-align: center;
+}
+
+.eyebrow {
+  margin: 0 0 13px;
+  color: #8b8059;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.board-intro h1 {
   margin: 0;
   font-family: 'Rubik', sans-serif;
-  font-size: clamp(28px, 5vw, 38px);
+  font-size: clamp(32px, 5vw, 48px);
   font-weight: 600;
-  line-height: 1.3;
+  letter-spacing: -0.04em;
+  line-height: 1.2;
 }
 
-.welcome-message {
-  margin: 18px 0 28px;
+.board-description {
+  margin: 16px 0 0;
   color: #777873;
-  font-size: 16px;
-  line-height: 1.7;
+  font-size: 18px;
 }
 
-.status {
-  display: inline-flex;
+.board-toolbar {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 18px;
+}
+
+.item-count {
+  color: #777873;
+  font-size: 15px;
+}
+
+.inspiration-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.inspiration-card {
+  position: relative;
+  display: flex;
+  aspect-ratio: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: 30px 32px 25px;
+  border: 1px solid rgb(41 42 37 / 5%);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgb(38 37 31 / 4%);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.inspiration-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgb(38 37 31 / 9%);
+}
+
+.inspiration-card.sage {
+  background: #e9eee6;
+}
+
+.inspiration-card.sand {
+  background: #f1eadf;
+}
+
+.inspiration-card.lavender {
+  background: #ece9f1;
+}
+
+.inspiration-card.rose {
+  background: #f1e8e5;
+}
+
+.card-quote-mark {
+  position: absolute;
+  top: 10px;
+  left: 25px;
+  color: rgb(76 79 62 / 13%);
+  font-family: 'Rubik', sans-serif;
+  font-size: 92px;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.card-content {
+  position: relative;
+  margin: 0 0 30px;
+  font-family: 'Rubik', sans-serif;
+  font-size: clamp(21px, 2.4vw, 27px);
+  font-weight: 500;
+  line-height: 1.55;
+}
+
+.card-footer {
+  display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 9px 14px;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 1px solid rgb(41 42 37 / 10%);
+  padding-top: 17px;
+}
+
+.card-author {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: 10px;
+  color: #4e5049;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.author-avatar {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  border: 1px solid rgb(41 42 37 / 10%);
+  border-radius: 50%;
+  background: rgb(255 255 255 / 55%);
+  color: #666044;
+  font-family: 'Rubik', sans-serif;
+  font-size: 15px;
+  place-items: center;
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card-tags li {
+  padding: 4px 9px;
+  border: 1px solid rgb(41 42 37 / 9%);
   border-radius: 999px;
-  background: #f2f5ef;
-  color: #4b6542;
+  color: #66675f;
+  font-size: 12px;
+}
+
+.connection-notice,
+.board-message {
+  padding: 16px 20px;
+  border: 1px solid #e7e1cf;
+  border-radius: 12px;
+  background: #f5f0e4;
+  color: #6b6249;
+  text-align: center;
+}
+
+.connection-notice {
+  margin: 0 0 20px;
   font-size: 14px;
 }
 
-.status-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #79a56a;
+.board-message {
+  margin: 24px 0;
 }
 
-@media (max-width: 480px) {
-  .welcome-card {
-    padding: 48px 24px;
+@media (max-width: 700px) {
+  .board-page {
+    padding: 0 20px 56px;
+  }
+
+  .site-header {
+    min-height: 70px;
+  }
+
+  .board-intro {
+    padding: 54px 0 30px;
+  }
+
+  .board-description {
+    font-size: 16px;
+  }
+
+  .inspiration-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .inspiration-card {
+    padding: 27px 24px 21px;
+  }
+}
+
+@media (min-width: 701px) and (max-width: 950px) {
+  .inspiration-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 400px) {
+  .header-note {
+    max-width: 135px;
+    font-size: 13px;
+    text-align: left;
+  }
+
+  .card-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .card-tags {
+    justify-content: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }
