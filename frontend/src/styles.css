@@ -100,13 +100,147 @@ a {
 
 .board-toolbar {
   display: flex;
-  justify-content: flex-start;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
   margin-bottom: 18px;
 }
 
 .item-count {
   color: #777873;
   font-size: 15px;
+}
+
+.add-inspiration-button,
+.submit-inspiration {
+  display: inline-flex;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 12px;
+  background: #6e7056;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.add-inspiration-button:hover,
+.submit-inspiration:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background: #5b5d46;
+}
+
+.add-inspiration-button span {
+  font-size: 21px;
+  line-height: 1;
+}
+
+.submit-inspiration {
+  width: 100%;
+  margin-top: 6px;
+}
+
+.submit-inspiration:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.dialog-backdrop {
+  position: fixed;
+  z-index: 10;
+  display: grid;
+  padding: 20px;
+  background: rgb(35 36 31 / 48%);
+  inset: 0;
+  place-items: center;
+}
+
+.inspiration-dialog {
+  position: relative;
+  width: min(100%, 480px);
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  padding: 36px;
+  border: 1px solid rgb(41 42 37 / 8%);
+  border-radius: 22px;
+  background: #fbfaf7;
+  box-shadow: 0 24px 80px rgb(20 20 17 / 20%);
+}
+
+.dialog-close {
+  position: absolute;
+  top: 15px;
+  right: 16px;
+  display: grid;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #efeee8;
+  color: #55564d;
+  cursor: pointer;
+  font-size: 25px;
+  line-height: 1;
+  place-items: center;
+}
+
+.dialog-close:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+
+.inspiration-dialog h2 {
+  margin: 0;
+  font-family: 'Rubik', sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.dialog-description {
+  margin: 10px 0 24px;
+  color: #777873;
+}
+
+.inspiration-form {
+  display: grid;
+  gap: 10px;
+}
+
+.inspiration-form label {
+  margin-top: 4px;
+  color: #4e5049;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.inspiration-form textarea,
+.inspiration-form input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #deddd5;
+  border-radius: 10px;
+  background: #fff;
+  color: #292a25;
+  font: inherit;
+  outline: none;
+  resize: vertical;
+}
+
+.inspiration-form textarea:focus,
+.inspiration-form input:focus {
+  border-color: #8b8059;
+  box-shadow: 0 0 0 3px rgb(139 128 89 / 13%);
+}
+
+.form-error {
+  margin: 2px 0;
+  color: #a43f37;
+  font-size: 14px;
 }
 
 .inspiration-grid {
@@ -255,6 +389,10 @@ a {
 
   .board-description {
     font-size: 16px;
+  }
+
+  .inspiration-dialog {
+    padding: 32px 24px 24px;
   }
 
   .inspiration-grid {

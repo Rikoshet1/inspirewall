@@ -17,3 +17,19 @@ export async function getInspirations() {
     return secondDate - firstDate;
   });
 }
+
+export async function createInspiration(inspiration) {
+  const response = await fetch('/api/inspirations', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(inspiration),
+  });
+
+  if (!response.ok) {
+    throw new Error(`שגיאת שרת ${response.status}`);
+  }
+
+  return response.json();
+}

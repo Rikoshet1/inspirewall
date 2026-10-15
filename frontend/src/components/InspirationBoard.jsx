@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { getInspirations } from '../services/inspirations.js';
+import { createInspiration, getInspirations } from '../services/inspirations.js';
 import { sampleInspirations } from '../data/sampleInspirations.js';
+import AddInspirationDialog from './AddInspirationDialog.jsx';
 import InspirationCard from './InspirationCard.jsx';
 
 function InspirationBoard() {
@@ -8,6 +9,7 @@ function InspirationBoard() {
   const [isLoading, setIsLoading] = useState(true);
   const [connectionError, setConnectionError] = useState('');
   const [isUsingSamples, setIsUsingSamples] = useState(false);
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -30,6 +32,11 @@ function InspirationBoard() {
       isMounted = false;
     };
   }, []);
+
+  async function handleAddInspiration(inspiration) {
+    const createdInspiration = await createInspiration(inspiration);
+    setInspirations((currentInspirations) => [createdInspiration, ...currentInspirations]);
+  }
 
   return (
     <main className="board-page">
@@ -58,25 +65,41 @@ function InspirationBoard() {
 
         {isLoading ? (
           <p className="board-message" role="status">טוען את אוסף ההשראה...</p>
-        ) : inspirations.length > 0 ? (
+        ) : (
           <>
             <div className="board-toolbar">
               <span className="item-count">{inspirations.length} משפטים באוסף</span>
+              <button
+                className="add-inspiration-button"
+                type="button"
+                onClick={() => setIsAddDialogOpen(true)}
+              >
+                <span aria-hidden="true">+</span>
+                הוספת משפט
+              </button>
             </div>
-            <div className="inspiration-grid">
-              {inspirations.map((inspiration, index) => (
-                <InspirationCard
-                  key={inspiration.id ?? `${inspiration.content}-${index}`}
-                  inspiration={inspiration}
-                  index={index}
-                />
-              ))}
-            </div>
+            {inspirations.length > 0 ? (
+              <div className="inspiration-grid">
+                {inspirations.map((inspiration, index) => (
+                  <InspirationCard
+                    key={inspiration.id ?? `${inspiration.content}-${index}`}
+                    inspiration={inspiration}
+                    index={index}
+                  />
+                ))}
+              </div>
+            ) : (
+              <p className="board-message">האוסף עדיין ריק. הוסיפו את המשפט הראשון.</p>
+            )}
           </>
-        ) : (
-          <p className="board-message">האוסף עדיין ריק. בקרוב יופיעו כאן המשפטים שלך.</p>
         )}
       </section>
+      {isAddDialogOpen && (
+        <AddInspirationDialog
+          onClose={() => setIsAddDialogOpen(false)}
+          onAdd={handleAddInspiration}
+        />
+      )}
     </main>
   );
 }
