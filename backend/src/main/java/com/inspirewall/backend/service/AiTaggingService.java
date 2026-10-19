@@ -36,7 +36,7 @@ public class AiTaggingService {
         String prompt = """
                 Generate between 4 and 6 short tags (one or two words each) \
                 for the following inspirational text. \
-                Write the tags in the same language as the text. \
+                Write the tags in Hebrew. \
                 Do not use the word "inspiration" or any direct translation of it as a tag. \
                 Respond ONLY with a JSON array of strings, nothing else.
 

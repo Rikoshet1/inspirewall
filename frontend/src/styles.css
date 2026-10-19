@@ -111,6 +111,52 @@ a {
   font-size: 15px;
 }
 
+.tag-search {
+  display: grid;
+  gap: 7px;
+  margin: 0 0 20px;
+  color: #4e5049;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.tag-search-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tag-search input {
+  width: min(100%, 420px);
+  min-height: 44px;
+  padding: 9px 13px;
+  border: 1px solid #deddd5;
+  border-radius: 10px;
+  background: #fff;
+  color: #292a25;
+  font: inherit;
+  font-weight: 400;
+}
+
+.tag-search input:focus {
+  border-color: #8b8059;
+  outline: none;
+  box-shadow: 0 0 0 3px rgb(139 128 89 / 13%);
+}
+
+.clear-tag-search,
+.clear-filter-link {
+  padding: 6px 10px;
+  border: 0;
+  background: transparent;
+  color: #666044;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .add-inspiration-button,
 .submit-inspiration {
   display: inline-flex;
@@ -348,11 +394,32 @@ a {
 }
 
 .card-tags li {
-  padding: 4px 9px;
   border: 1px solid rgb(41 42 37 / 9%);
   border-radius: 999px;
   color: #66675f;
   font-size: 12px;
+}
+
+.card-tag-button {
+  padding: 4px 9px;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.card-tag-button:hover,
+.card-tag-button[aria-pressed="true"] {
+  background: rgb(255 255 255 / 55%);
+  color: #4e503f;
+}
+
+.card-tag-button:focus-visible,
+.clear-tag-search:focus-visible,
+.clear-filter-link:focus-visible {
+  outline: 2px solid #8b8059;
+  outline-offset: 2px;
 }
 
 .connection-notice,

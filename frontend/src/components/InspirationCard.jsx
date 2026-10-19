@@ -1,8 +1,10 @@
 const cardStyles = ['sage', 'sand', 'lavender', 'rose'];
 
-function InspirationCard({ inspiration, index }) {
+function InspirationCard({ inspiration, index, activeTag, onTagSelect }) {
   const author = inspiration.author?.trim() || 'לא ידוע';
-  const tags = Array.isArray(inspiration.tags) ? inspiration.tags : [];
+  const tags = Array.isArray(inspiration.tags)
+    ? inspiration.tags.filter((tag) => typeof tag === 'string' && tag.trim())
+    : [];
   const style = cardStyles[index % cardStyles.length];
 
   return (
@@ -18,7 +20,18 @@ function InspirationCard({ inspiration, index }) {
         </div>
         {tags.length > 0 && (
           <ul className="card-tags" aria-label="תגיות">
-            {tags.slice(0, 3).map((tag) => <li key={tag}>{tag}</li>)}
+            {tags.map((tag) => (
+              <li key={tag}>
+                <button
+                  className="card-tag-button"
+                  type="button"
+                  aria-pressed={tag.trim().toLocaleLowerCase() === activeTag.trim().toLocaleLowerCase()}
+                  onClick={() => onTagSelect(tag)}
+                >
+                  {tag}
+                </button>
+              </li>
+            ))}
           </ul>
         )}
       </div>

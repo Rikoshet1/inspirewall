@@ -3,9 +3,11 @@ import { createInspiration, getInspirations } from '../services/inspirations.js'
 import { sampleInspirations } from '../data/sampleInspirations.js';
 import AddInspirationDialog from './AddInspirationDialog.jsx';
 import InspirationCard from './InspirationCard.jsx';
+import TagSearch from './TagSearch.jsx';
 
 function InspirationBoard() {
   const [inspirations, setInspirations] = useState([]);
+  const [tagQuery, setTagQuery] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [connectionError, setConnectionError] = useState('');
   const [isUsingSamples, setIsUsingSamples] = useState(false);
@@ -38,6 +40,22 @@ function InspirationBoard() {
     setInspirations((currentInspirations) => [createdInspiration, ...currentInspirations]);
   }
 
+  const availableTags = [...new Set(
+    inspirations.flatMap((inspiration) =>
+      Array.isArray(inspiration.tags)
+        ? inspiration.tags.filter((tag) => typeof tag === 'string' && tag.trim())
+        : [],
+    ),
+  )].sort((first, second) => first.localeCompare(second));
+  const normalizedQuery = tagQuery.trim().toLocaleLowerCase();
+  const filteredInspirations = normalizedQuery
+    ? inspirations.filter((inspiration) =>
+      Array.isArray(inspiration.tags) && inspiration.tags.some(
+        (tag) => typeof tag === 'string' && tag.toLocaleLowerCase().includes(normalizedQuery),
+      ),
+    )
+    : inspirations;
+
   return (
     <main className="board-page">
       <header className="site-header">
@@ -68,7 +86,11 @@ function InspirationBoard() {
         ) : (
           <>
             <div className="board-toolbar">
-              <span className="item-count">{inspirations.length} משפטים באוסף</span>
+              <span className="item-count" role="status">
+                {normalizedQuery
+                  ? `${filteredInspirations.length} מתוך ${inspirations.length} משפטים`
+                  : `${inspirations.length} משפטים באוסף`}
+              </span>
               <button
                 className="add-inspiration-button"
                 type="button"
@@ -78,16 +100,31 @@ function InspirationBoard() {
                 הוספת משפט
               </button>
             </div>
-            {inspirations.length > 0 ? (
+            {inspirations.length > 0 && (
+              <TagSearch tags={availableTags} value={tagQuery} onChange={setTagQuery} />
+            )}
+            {inspirations.length > 0 && filteredInspirations.length > 0 ? (
               <div className="inspiration-grid">
-                {inspirations.map((inspiration, index) => (
-                  <InspirationCard
-                    key={inspiration.id ?? `${inspiration.content}-${index}`}
-                    inspiration={inspiration}
-                    index={index}
-                  />
-                ))}
+                {filteredInspirations.map((inspiration) => {
+                  const index = inspirations.indexOf(inspiration);
+                  return (
+                    <InspirationCard
+                      key={inspiration.id ?? `${inspiration.content}-${index}`}
+                      inspiration={inspiration}
+                      index={index}
+                      activeTag={tagQuery}
+                      onTagSelect={setTagQuery}
+                    />
+                  );
+                })}
               </div>
+            ) : inspirations.length > 0 ? (
+              <p className="board-message" role="status">
+                לא נמצאו משפטים עם תגית „{tagQuery}”.{' '}
+                <button className="clear-filter-link" type="button" onClick={() => setTagQuery('')}>
+                  ניקוי החיפוש
+                </button>
+              </p>
             ) : (
               <p className="board-message">האוסף עדיין ריק. הוסיפו את המשפט הראשון.</p>
             )}

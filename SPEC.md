@@ -62,7 +62,7 @@ Defined under `com.inspirewall.model.InspirationItem` stored in MongoDB:
 - `components/`:
   - `ItemCard.jsx`: Displays content, author, tags, and date.
   - `ItemForm.jsx`: Form to submit a new quote/thought.
-  - `TagFilter.jsx`: Tag bar to filter items on the board.
+  - The board displays all available tags on each card (up to six) and supports filtering by tag.
 - `services/`:
   - `api.js`: `fetch`/`axios` functions for backend REST calls.
 
@@ -70,4 +70,4 @@ Defined under `com.inspirewall.model.InspirationItem` stored in MongoDB:
 
 1. **Initial Load:** Fetch all items from API and render them in a responsive card grid.
 2. **Add Item:** User inputs text in form -> `POST` request sent -> Backend tags with AI & saves -> UI re-renders updated list.
-3. **Filter:** Clicking a tag filters displayed items via backend search endpoint.
+3. **Filter:** Typing or selecting a tag in the board search, or clicking a tag on a card, filters the already-loaded items in the client. Search matches tag text without case sensitivity; one query is active at a time, and clearing it restores the full collection. All tags are searchable, including tags displayed on cards.
